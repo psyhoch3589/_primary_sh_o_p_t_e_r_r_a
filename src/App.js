@@ -245,7 +245,13 @@ function App() {
                   <input type="text" value={cost} onChange={handleChangeCost} required="required" />
                   <span>Cost</span>
                   <h4 id='currency'>$</h4>
-              </div>
+            </div>
+            <select class="form-select" aria-label="Default select example" onChange={(e)=>console.log(e.target.value)}>
+              <option value="" selected>Categorie</option>
+              <option value="One">One</option>
+              <option value="Two">Two</option>
+              <option value="Tree">Tree</option>
+            </select>
             <div>
           </div>
             <button className='submit_item' onClick={()=>publish()}>Submit</button>

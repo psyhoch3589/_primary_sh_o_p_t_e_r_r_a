@@ -207,6 +207,9 @@ h1{
   border-radius: 10px;
   margin-bottom: 10px;
 }
+.FormContainer textarea{
+  height: 100px !important;
+}
 .firstInput{
   margin-top: 10px;
 }
@@ -274,16 +277,29 @@ h1{
   border: none;
 }
 
-/* upload file */
-#BtnUploadFile{
-  min-width: 60%;
+.form-select{
+  width: 60%;
   margin-left: 20%;
-  display: none;
-}
-#label{
-  cursor: pointer;
+  margin-bottom: 10px;
 }
 
+/* upload file */
+#BtnUploadFile{
+  display: none;
+}
+.uploadBtn{
+  height: 120px;
+  width: 60%;
+  margin-left: 20%;
+  padding-top: 4px;
+}
+.uploadBtn h3{
+  color: black;
+}
+#icon_upload_image{
+  margin-top: 0%;
+  height: 40px;
+}
 /* Stock */
 .Stock_Statistics{
   display:flex !important;
@@ -310,16 +326,4 @@ h1{
   left: 95%;
 }
 /* test */
-.uploadBtn{
-  height: 120px;
-  width: 60%;
-  margin-left: 20%;
-  padding-top: 4px;
-}
-.uploadBtn h3{
-  color: black;
-}
-#icon_upload_image{
-  margin-top: 0%;
-  height: 40px;
-}
+
