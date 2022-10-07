@@ -5,7 +5,8 @@ import axios from 'axios';
 
 
 function App() {
-  const [url,setUrl]=React.useState("192.168.1.168");
+  const hiddenFileInput = React.useRef(null);
+  const [url,setUrl]=React.useState("192.168.101.36");
   const [DataItem,setDataPost]=React.useState();
   const [test,setTest]=React.useState(0);
   const [articleID,SetArticleID]=React.useState();
@@ -47,6 +48,17 @@ function App() {
   };
 
 
+
+
+  // image upload
+  const handleClick = event => {
+    hiddenFileInput.current.click();
+  };
+  const handleChange = event => {
+    setFile(event.target.files[0]);
+  };
+
+
   React.useEffect(()=>{
     fetchDataItem()
   },[]);
@@ -73,51 +85,49 @@ function App() {
       });
   }
   const publish =()=>{
-    let test=0;
-    const data = {
-      title : title,
-      description: description,
-      cost : cost,
-      Discount:discount,
-      Stock:stock,
-      orders:orders,
-      status : 'online',
-      key:'1'
-    };
-    fetch('http://'+url+'/Shopterra/Api.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {if(data.status=='ok') {
-        test=1;
-      }})
-
-    // upload image
-    const formData =  new FormData();
-    formData.append('image', file);
-    formData.append('index', 'shopterraClient');
-    axios.post('http://'+url+'/Shopterra/imageUpload.php', formData, {
-    })
-    .then(res => {
-      if(test==1 && res.status==200){
-        console.log("ok")
-        setTitle('')
-        setDescription('')
-        setCost('')
-        setDiscount('')
-        setStock('')
-      }
+    var imagepath;
+    // if(file){
+      // upload image
+      const formData =  new FormData();
+      formData.append('image', file);
+      formData.append('index', 'shopterraClient');
+      axios.post('http://'+url+'/Shopterra/imageUpload.php', formData, {
       })
+      .then(res => {
+        // upload data
+      const data = {
+        title : title,
+        description: description,
+        cost : cost,
+        Discount:discount,
+        Stock:stock,
+        orders:orders,
+        imagepath:res.data.imagepath,
+        status : 'online',
+        key:'1'
+      };
+      fetch('http://'+url+'/Shopterra/Api.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if(data.status=='ok') {
+            setTitle('')
+            setDescription('')
+            setCost('')
+            setDiscount('')
+            setStock('')
+        }})}
+      )
   }
   return (
-    
     <div className='row nopadding Main'>
       <div className='col-xl-3 col-lg-3 col-md-3 left_section nopadding'>
-        <h1 className='logo'>test<span className='logo_point'>.</span></h1>
+        <h1 className='logo'>Shopterra<span className='logo_point'>.</span></h1>
         <div className='Options'>
           <button className={selected=='Overview' ? 'Btn_Option selectedOption':'Btn_Option'}>Overview</button><br/>
           <button className={selected=='article' ? 'Btn_Option selectedOption':'Btn_Option'} onClick={()=>{
@@ -190,9 +200,26 @@ function App() {
 
           {/* Add new article */}
           {(option=='addItem' || option=='Modify') ?
-          (<div className='FormContainer'>
-            {option=='addItem'? (<h1>New Article</h1>):(<h1>Modify the article</h1>)}
-            <div className="input-bx">
+          (
+          <div className='FormContainer col-xl-8'>
+            {option=='addItem'? (<h1>Article à vendre</h1>):(<h1>Modify the article</h1>)}
+
+            {/* upload image */}
+            <button onClick={handleClick} className='uploadBtn'>
+              <img src="https://customercare.igloosoftware.com/.api2/api/v1/communities/10068556/previews/thumbnails/4fc20722-5368-e911-80d5-b82a72db46f2?width=680&height=680&crop=False" id='icon_upload_image' />
+              <h3>Ajouter des photos</h3>
+              <p>ou faites glisser-déposer</p>
+            </button>
+            <input
+              type="file"
+              name="myImage"
+              ref={hiddenFileInput}
+              onChange={handleChange}
+              id="BtnUploadFile"
+            />
+
+            {/* inputs */}
+            <div className="input-bx firstInput">
               <input type="text" value={title} onChange={handleChangetitle} required="required" />
               <span>title</span>
             </div>
@@ -220,14 +247,6 @@ function App() {
                   <h4 id='currency'>$</h4>
               </div>
             <div>
-            <input
-              type="file"
-              name="myImage"
-              onChange={(event) => {
-                setFile(event.target.files[0]);
-              }}
-              id="BtnUploadFile"
-            />
           </div>
             <button className='submit_item' onClick={()=>publish()}>Submit</button>
           </div>):false}

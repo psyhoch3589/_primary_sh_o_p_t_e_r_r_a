@@ -196,10 +196,6 @@ h1{
 }
 /* Add item */
 .FormContainer{
-  width: 80%;
-  margin-left: 10%;
-  margin-top: 30px;
-  top:-100px;
 }
 .FormContainer h1{
   text-align: center;
@@ -210,6 +206,9 @@ h1{
   border: 1px solid rgb(161, 157, 157);
   border-radius: 10px;
   margin-bottom: 10px;
+}
+.firstInput{
+  margin-top: 10px;
 }
 .input-bx{
   position: relative;
@@ -279,6 +278,10 @@ h1{
 #BtnUploadFile{
   min-width: 60%;
   margin-left: 20%;
+  display: none;
+}
+#label{
+  cursor: pointer;
 }
 
 /* Stock */
@@ -307,3 +310,16 @@ h1{
   left: 95%;
 }
 /* test */
+.uploadBtn{
+  height: 120px;
+  width: 60%;
+  margin-left: 20%;
+  padding-top: 4px;
+}
+.uploadBtn h3{
+  color: black;
+}
+#icon_upload_image{
+  margin-top: 0%;
+  height: 40px;
+}
