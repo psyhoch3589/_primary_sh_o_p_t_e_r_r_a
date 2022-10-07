@@ -3,7 +3,7 @@ import React from 'react';
 import axios from 'axios';
 
 
-{/*hello */ }
+
 
 function App() {
   const [url,setUrl]=React.useState("192.168.101.36");
