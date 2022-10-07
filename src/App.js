@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 function App() {
-  const [url,setUrl]=React.useState("192.168.1.168");
+  const [url,setUrl]=React.useState("192.168.101.36");
   const [DataItem,setDataPost]=React.useState();
   const [test,setTest]=React.useState(0);
   const [articleID,SetArticleID]=React.useState();
