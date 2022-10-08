@@ -256,6 +256,7 @@ function App() {
           </div>
             <button className='submit_item' onClick={()=>publish()}>Submit</button>
           </div>):false}
+          
           {/* floatting button */}
           {option=='article' ?(<button className='float' onClick={()=>setOption('addItem')}>
             <img src="" />
